@@ -22,8 +22,14 @@ import { toCurrency } from '@/shared/formatters'
 const LoadingMessage = defineAsyncComponent(() => import('@/shared/LoadingMessage.vue'))
 const EmptyCart = defineAsyncComponent(() => import('./EmptyCart.vue'))
 const ProductInfo = defineAsyncComponent({
-  loader:() => import('@/catalog/product-info/ProductInfo.vue'),
+  loader:() => new Promise((resolve) => {
+    setTimeout(() => import('@/catalog/product-info/ProductInfo.vue')
+      .then(c => resolve(c)), 3000)
+  }),
   loadingComponent: LoadingMessage,
+  delay: 200,
+  timeout: 5000,
+  errorComponent: LoadingMessage, //Just for testing
 })
 
 const cartStore = useCartStore()
