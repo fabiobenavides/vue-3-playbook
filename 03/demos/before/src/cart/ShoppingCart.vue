@@ -19,8 +19,12 @@ import { storeToRefs } from 'pinia'
 import { useCartStore } from '@/stores/cart'
 import { toCurrency } from '@/shared/formatters'
 
+const LoadingMessage = defineAsyncComponent(() => import('@/shared/LoadingMessage.vue'))
 const EmptyCart = defineAsyncComponent(() => import('./EmptyCart.vue'))
-const ProductInfo = defineAsyncComponent(() => import('@/catalog/product-info/ProductInfo.vue'))
+const ProductInfo = defineAsyncComponent({
+  loader:() => import('@/catalog/product-info/ProductInfo.vue'),
+  loadingComponent: LoadingMessage,
+})
 
 const cartStore = useCartStore()
 const { cart, cartTotal } = storeToRefs(cartStore)
