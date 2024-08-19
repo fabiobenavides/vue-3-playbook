@@ -14,11 +14,13 @@
 </template>
 
 <script setup>
+import { defineAsyncComponent } from 'vue'
 import { storeToRefs } from 'pinia'
-import EmptyCart from './EmptyCart.vue'
-import ProductInfo from '@/catalog/product-info/ProductInfo.vue'
 import { useCartStore } from '@/stores/cart'
 import { toCurrency } from '@/shared/formatters'
+
+const EmptyCart = defineAsyncComponent(() => import('./EmptyCart.vue'))
+const ProductInfo = defineAsyncComponent(() => import('@/catalog/product-info/ProductInfo.vue'))
 
 const cartStore = useCartStore()
 const { cart, cartTotal } = storeToRefs(cartStore)
