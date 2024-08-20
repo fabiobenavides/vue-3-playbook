@@ -3,8 +3,8 @@
     <h2 v-if="productStore.productsLoading">Product data is loading...</h2>
     <ul class="products">
       <li class="product-item" v-for="(product, index) in productStore.products" :key="index" @click="activeId = product.id">
-        <ProductInfo :product="product" :activeId="activeId">
-          <CtaButton @click="cartStore.addToCart(product)">Buy</CtaButton>
+        <ProductInfo :product="product" :selected="product.id === activeId">
+          <CtaButton @click="cartStore.addToCard(product)">Buy</CtaButton>
         </ProductInfo>
       </li>
     </ul>
