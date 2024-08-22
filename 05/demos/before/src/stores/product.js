@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { ref } from 'vue'
+import { ref, readonly } from 'vue'
 
 export const useProductStore = defineStore('products', () => {
   const products = ref([])
@@ -9,7 +9,7 @@ export const useProductStore = defineStore('products', () => {
     const response = await fetch('/api/products')
     const returnedProducts = await response.json()
 
-    products.value = returnedProducts
+    products.value = readonly(returnedProducts)
 
     return returnedProducts
   }

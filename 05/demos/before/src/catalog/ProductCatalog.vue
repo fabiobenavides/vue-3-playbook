@@ -4,8 +4,8 @@
     <ul class="products">
       <li class="product-item" v-for="(product, index) in productStore.products" :key="index"
         @click="activeId = product.id">
-        <ProductInfo :product="product" :selected="product.id === activeId">
-          <CtaButton @click="cartStore.addToCart(product)">Buy</CtaButton>
+        <ProductInfo :product="product" :selected="product.id === activeId" @click="product.name = 'New Name'">
+          <CtaButton @click.stop="cartStore.addToCart(product)">Buy</CtaButton>
         </ProductInfo>
       </li>
     </ul>
