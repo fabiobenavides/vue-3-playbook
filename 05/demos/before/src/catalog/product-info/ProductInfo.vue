@@ -21,11 +21,20 @@
 </template>
 
 <script setup>
+import { ref, watch } from 'vue';
 import { toCurrency } from '@/shared/formatters'
+import { useProductStore } from '@/stores/product'
 
-defineProps({
+const { getInventory } = useProductStore()
+const inventory = ref(null)
+
+const props = defineProps({
   product: { required: true },
   selected: { type: Boolean, required: false },
+})
+
+watch(() => props.selected, () => {
+
 })
 
 const emit = defineEmits(['partCategorySelected'])
