@@ -36,9 +36,12 @@ const props = defineProps({
   selected: { type: Boolean, required: false },
 })
 
-watch(() => props.selected, async () => {
-  console.log('Getting the inventory')
-  inventory.value = await getInventory(props.product.id)
+watch(() => props.selected, async (newValue, oldValue, onCleanup) => {
+  if (newValue)
+    inventory.value = await getInventory(props.product.id)
+  onCleanup(() => {}) //right before the next time the callback function is call
+  //reset variables, flex, etc
+
 })
 
 const emit = defineEmits(['partCategorySelected'])
