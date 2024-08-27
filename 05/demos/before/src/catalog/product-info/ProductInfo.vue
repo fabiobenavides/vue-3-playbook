@@ -37,6 +37,7 @@ const props = defineProps({
 })
 
 watchEffect(async (newValue, oldValue) => {
+  if (props.selected)
     inventory.value = await getInventory(props.product.id)
 })
 
