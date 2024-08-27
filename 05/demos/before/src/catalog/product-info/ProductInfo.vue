@@ -36,11 +36,15 @@ const props = defineProps({
   selected: { type: Boolean, required: false },
 })
 
-watchEffect(async (newValue, oldValue) => {
+//watchEffect you dont have old/new values
+// you can use onCleanup
+//you dont explicit declare your dependencies  vue analys the callback
+watchEffect(async () => {
   if (props.selected)
     inventory.value = await getInventory(props.product.id)
 })
 
+//watch you have old/new values
 // watch(() => props.selected, async (newValue/*, oldValue, onCleanup*/) => {
 //   if (newValue)
 //     inventory.value = await getInventory(props.product.id)
