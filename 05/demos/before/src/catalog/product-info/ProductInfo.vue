@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
 import { toCurrency } from '@/shared/formatters'
 import { useProductStore } from '@/stores/product'
 
@@ -36,13 +36,17 @@ const props = defineProps({
   selected: { type: Boolean, required: false },
 })
 
-watch(() => props.selected, async (newValue, oldValue, onCleanup) => {
-  if (newValue)
+watchEffect(async (newValue, oldValue) => {
     inventory.value = await getInventory(props.product.id)
-  onCleanup(() => {}) //right before the next time the callback function is call
-  //reset variables, flex, etc
-
 })
+
+// watch(() => props.selected, async (newValue/*, oldValue, onCleanup*/) => {
+//   if (newValue)
+//     inventory.value = await getInventory(props.product.id)
+  
+//   //  onCleanup(() => {}) //right before the next time the callback function is call
+//   //reset variables, flex, etc
+// })
 
 const emit = defineEmits(['partCategorySelected'])
 
