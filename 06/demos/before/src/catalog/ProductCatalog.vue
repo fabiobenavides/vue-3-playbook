@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import ProductInfo from './product-info/ProductInfo.vue'
+import ProductInfo from './product-info/ProductInfo-Options.vue'
 import { useCartStore } from '@/stores/cart'
 import { useProductStore } from '@/stores/product'
 

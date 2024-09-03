@@ -23,40 +23,46 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { watchEffect, ref } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
 import { toCurrency } from '@/shared/formatters'
 import { useProductStore } from '@/stores/product'
-import type { Product } from './product.interface';
+import type { Product } from './product.interface'
 
-const { getInventory } = useProductStore()
-const inventory = ref(null)
+export default defineComponent({
+  setup() {
+    const { getInventory } = useProductStore()
 
-interface Props {
-  product: Product,
-  selected?: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {selected: false})
-
-/* const props = defineProps({
-  product: { required: true },
-  selected: { type: Boolean, required: false, default: false },
-}) */
-
-watchEffect(async () => {
-  if (props.selected)
-    inventory.value = await getInventory(props.product.id)
+    return { getInventory }
+  },
+  props: {
+    product: Object as PropType<Product>,
+    selected: Boolean,
+  },
+  emits: {
+    partCategorySelected(category: string) {
+      return ['Heads', 'Arms', 'Torsos', 'Bases'].includes(category)
+    },
+  },
+  data: function () {
+    return {
+      inventory: null,
+    }
+  },
+  methods: {
+    partCategoryClicked(category: string) {
+      this.$emit('partCategorySelected', category)
+    },
+    toCurrency,
+  },
+  watch: {
+    async selected(newValue, oldValue) {
+      if (newValue || oldValue === undefined)
+        this.inventory = await this.getInventory(this.product?.id)
+    },
+  },
 })
-
-const emit = defineEmits(['partCategorySelected'])
-
-//const emit = defineEmits(['partCategorySelected'])
-
-const partCategoryClicked = (category: string) => {
-  emit('partCategorySelected', category)
-}
-
 </script>
 
 <style scoped>
@@ -118,7 +124,7 @@ const partCategoryClicked = (category: string) => {
 }
 
 .discount {
-  margin-top: -10px;
+  margin-top: -15px;
   color: #d25ca1;
 }
 
