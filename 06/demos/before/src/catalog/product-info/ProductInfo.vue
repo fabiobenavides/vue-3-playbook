@@ -23,18 +23,26 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { watchEffect, ref } from 'vue'
 import { toCurrency } from '@/shared/formatters'
 import { useProductStore } from '@/stores/product'
+import type { Product } from './product.interface';
 
 const { getInventory } = useProductStore()
 const inventory = ref(null)
 
-const props = defineProps({
+interface Props {
+  product: Product,
+  selected?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {selected: false})
+
+/* const props = defineProps({
   product: { required: true },
-  selected: { type: Boolean, required: false },
-})
+  selected: { type: Boolean, required: false, default: false },
+}) */
 
 watchEffect(async () => {
   if (props.selected)
