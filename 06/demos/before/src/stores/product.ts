@@ -1,11 +1,13 @@
+import type { Product } from '@/catalog/product-info/product.interface'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref, readonly } from 'vue'
+import type { Ref } from 'vue'
 
 export const useProductStore = defineStore('products', () => {
-  const products = ref([])
-  const productsLoading = ref(false)
+  const products: Ref<Product[]> = ref([])
+  const productsLoading: Ref<boolean> = ref(false)
 
-  async function getProducts() {
+  async function getProducts() : Promise<Product[]> {
     const response = await fetch('/api/products')
     const returnedProducts = await response.json()
 
@@ -14,7 +16,7 @@ export const useProductStore = defineStore('products', () => {
     return returnedProducts
   }
 
-  async function getInventory(productId) {
+  async function getInventory(productId: number) {
     const response = await fetch(`/api/inventory/${productId}`)
 
     const inventory = await response.json()

@@ -4,15 +4,24 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@rushstack/eslint-patch": "^1.10.4",
+    "@tsconfig/node18": "^18.2.4",
+    "@types/node": "^22.5.2",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/tsconfig": "^0.5.1",
     "@vueuse/core": "^10.2.1",
+    "npm-run-all2": "^6.2.2",
     "pinia": "^2.1.4",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.2"
+    "vue-router": "^4.2.2",
+    "vue-tsc": "^2.1.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

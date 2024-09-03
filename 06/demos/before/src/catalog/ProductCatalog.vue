@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import ProductInfo from './product-info/ProductInfo.vue'
 import { useCartStore } from '@/stores/cart'
