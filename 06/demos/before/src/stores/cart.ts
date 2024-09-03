@@ -1,16 +1,17 @@
+import type { Product } from '@/catalog/product-info/product.interface'
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, type Ref } from 'vue'
 
 export const useCartStore = defineStore('cart', () => {
-  const cart = ref([])
+  const cart: Ref<Product[]> = ref([])
 
   const cartTotal = computed(() => cart.value.reduce((prev, cur) => prev += cur ? cur.price : 0, 0))
 
-  function addToCart(product) {
+  function addToCart(product: Product) {
     cart.value.push(product)
   }
 
-  function removeFromCart(product) {
+  function removeFromCart(product: Product) {
     const itemIndex = cart.value.findIndex(p => p.id === product.id)
     cart.value.splice(itemIndex, 1)
   }
