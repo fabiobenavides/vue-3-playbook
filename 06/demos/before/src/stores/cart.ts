@@ -5,6 +5,7 @@ import { ref, computed, type Ref } from 'vue'
 export const useCartStore = defineStore('cart', () => {
   const cart: Ref<Product[]> = ref([])
 
+  //The type is infered
   const cartTotal = computed(() => cart.value.reduce((prev, cur) => prev += cur ? cur.price : 0, 0))
 
   function addToCart(product: Product) {

@@ -49,7 +49,10 @@ watchEffect(async () => {
     inventory.value = await getInventory(props.product.id)
 })
 
-const emit = defineEmits(['partCategorySelected'])
+//TS declaration 2
+const emit = defineEmits<{ partCategorySelected: [category: string] } >()
+//TS declaration 1
+//const emit = defineEmits<{(e: 'partCategorySelected', category: string): void } >()
 
 //const emit = defineEmits(['partCategorySelected'])
 
